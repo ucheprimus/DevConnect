@@ -3,6 +3,7 @@
 use App\Http\Controllers\Dev\DevController;
 use App\Http\Controllers\Employer\EmployerController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,6 +17,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('employer')->middleware('role.check:employer')->group(function () {
     Route:: get('/dashboard', [EmployerController::class, 'dashboard'])->name('employer.dashboard');
     Route:: get('/settings', [EmployerController::class, 'settings'])->name('employer.settings');
+    Route:: get('/job_post', [EmployerController::class, 'jobpost'])->name('jobpost');
 
 
 });

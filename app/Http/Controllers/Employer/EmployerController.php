@@ -13,4 +13,9 @@ class EmployerController extends Controller
     {
         return view('employer.dashboard');
     }
+
+    public function jobpost()
+    {
+        return view('employer.jobpost');
+    }
 }
