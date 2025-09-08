@@ -18,6 +18,8 @@ Route::prefix('employer')->middleware('role.check:employer')->group(function () 
     Route:: get('/dashboard', [EmployerController::class, 'dashboard'])->name('employer.dashboard');
     Route:: get('/settings', [EmployerController::class, 'settings'])->name('employer.settings');
     Route:: get('/job_post', [EmployerController::class, 'jobpost'])->name('jobpost');
+    Route:: post('/job_post', [EmployerController::class, 'jobstore'])->name('jobstore');
+
 
 
 });
