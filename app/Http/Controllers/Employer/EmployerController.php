@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Employer;
 
 use App\Http\Controllers\Controller;
+use App\Models\MyJob;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -43,11 +44,11 @@ class EmployerController extends Controller
             'apply_method' => 'nullable|string',
         ]);
 
-        Job::create($validated);
+        MyJob::create($validated);
 
-        return redirect()->route('jobs.index')->with('success', 'Job created successfully!');
+        return redirect()->back()->with('success', 'Job created successfully!');
     }
-    }
+    
 
     
 }

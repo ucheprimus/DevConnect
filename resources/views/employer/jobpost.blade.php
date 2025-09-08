@@ -79,7 +79,8 @@
 <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
-        <form id="jobForm">
+        <form id="jobForm" method="post" action="{{route('jobstore')}}">
+            @csrf
           <div class="modal-header">
             <h5 class="modal-title" id="createModalLabel">Post a Job</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

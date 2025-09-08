@@ -222,7 +222,9 @@
         <!-- Navigation Bar -->
         @include('includes.dash.topnavbar')
         <!-- Body Content Wrapper -->
+
         <div class="ms-content-wrapper">
+            @include('includes.messages')
             @yield('content')
         </div>
 
