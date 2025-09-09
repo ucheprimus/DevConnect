@@ -35,30 +35,48 @@
                             <thead class="table-dark">
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">First Name</th>
-                                    <th scope="col">Last Name</th>
-                                    <th scope="col">Email</th>
+                                    <th scope="col">Job Title</th>
+                                    <th scope="col">Job Category</th>
+                                    <th scope="col">Location</th>
+                                    <th scope="col">Salary</th>
+                                    <th scope="col">Skills</th>
+                                    <th scope="col">Experience</th>
+                                    <th scope="col">Deadline</th>
+                                    <th scope="col">Actions</th>
                                 </tr>
                             </thead>
+
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>John</td>
-                                    <td>Doe</td>
-                                    <td>john.doe@example.com</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jane</td>
-                                    <td>Smith</td>
-                                    <td>jane.smith@example.com</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Michael</td>
-                                    <td>Brown</td>
-                                    <td>michael.brown@example.com</td>
-                                </tr>
+
+                                @forelse ($jobs as $index => $job)
+                                    <tr>
+                                        <th scope="row">{{ $index + 1 }}</th>
+                                        <td>{{ $job->job_title }}</td>
+                                        <td>{{ $job->job_category ?? 'N/A'}}</td>
+                                        <td>{{ $job->job_type }}</td>
+                                        <td>{{ $job->work_setup }}</td>
+                                        <td>{{ $job->location ?? '—' }}</td>
+                                        <td>{{ $job->vacancies }}</td>
+                                        <td>{{ $job->experience_level }}</td>
+                                        <td>
+                                            {{ $job->application_deadline ? \Carbon\Carbon::parse($job->application_deadline)->format('M d, Y') : '—' }}
+                                        </td>
+                                        <td>
+                                            <a href="#" class="btn btn-sm btn-info">View</a>
+                                            <a href="#" class="btn btn-sm btn-warning">Edit</a>
+
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <th scope="row">—</th>
+                                        <td colspan="9" class="text-center text-muted">No jobs posted yet.</td>
+                                    </tr>
+                                @endforelse
+
+
+
+
                             </tbody>
                         </table>
 
@@ -75,19 +93,19 @@
 
 
     <!-- Modal -->
-<!-- Modal -->
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-      <div class="modal-content">
-        <form id="jobForm" method="post" action="{{route('jobstore')}}">
-            @csrf
-          <div class="modal-header">
-            <h5 class="modal-title" id="createModalLabel">Post a Job</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
+    <!-- Modal -->
+    <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <form id="jobForm" method="post" action="{{ route('jobstore') }}">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createModalLabel">Post a Job</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
 
-          <div class="modal-body" style="max-height:70vh; overflow-y:auto;">
-            <!-- Basic Job Details -->
+                    <div class="modal-body" style="max-height:70vh; overflow-y:auto;">
+                        <!-- Basic Job Details -->
                         <h6 class="fw-bold">Basic Details</h6>
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -98,16 +116,16 @@
 
                             <div class="col-md-6 mb-3">
 
-                            <select class="form-select" name="job_category" required>
-                                <option value="">-- Select Job Category --</option>
-                                @foreach ($job_categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
+                                <select class="form-select" name="job_category" required>
+                                    <option value="">-- Select Job Category --</option>
+                                    @foreach ($job_categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            
 
-                            
+
+
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Job Type</label>
                                 <select class="form-select" name="job_type">

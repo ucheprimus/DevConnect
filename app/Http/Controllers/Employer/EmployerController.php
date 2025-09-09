@@ -19,7 +19,10 @@ class EmployerController extends Controller
     public function jobpost()
     {
         $job_categories = DB::table('job_categories')->get();
-        return view('employer.jobpost', compact('job_categories'));
+        $jobs = MyJob::latest()->get();
+
+
+        return view('employer.jobpost', compact('job_categories', 'jobs'));
     }
 
     public function jobstore(Request $request)
