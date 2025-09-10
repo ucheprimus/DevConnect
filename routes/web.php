@@ -19,7 +19,9 @@ Route::prefix('employer')->middleware('role.check:employer')->group(function () 
     Route:: get('/settings', [EmployerController::class, 'settings'])->name('employer.settings');
     Route:: get('/job_post', [EmployerController::class, 'jobpost'])->name('jobpost');
     Route:: post('/job_post', [EmployerController::class, 'jobstore'])->name('jobstore');
-
+    Route:: get('/job/{job}', [EmployerController::class, 'jobedit'])->name('jobedit');
+    Route::put('/jobs/{job}', [EmployerController::class, 'jobupdate'])->name('jobs.update');
+    Route::delete('/jobs/{job}', [EmployerController::class, 'jobdestroy'])->name('jobs.destroy');
 
 
 });

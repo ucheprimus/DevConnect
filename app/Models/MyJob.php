@@ -9,7 +9,7 @@ class MyJob extends Model
     //
     protected $fillable = [
         'job_title',
-        'job_category',
+        'job_category_id',
         'job_type',
         'work_setup',
         'location',
@@ -26,4 +26,10 @@ class MyJob extends Model
         'application_deadline',
         'apply_method',
     ];
+
+    public function category()
+{
+    return $this->belongsTo(JobCategory::class, 'job_category_id');
+}
+
 }

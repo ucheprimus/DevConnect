@@ -37,9 +37,13 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Job Title</th>
                                     <th scope="col">Job Category</th>
-                                    <th scope="col">Location</th>
+                                    <th scope="col">Job Type</th>
                                     <th scope="col">Salary</th>
+                                    <th scope="col">Work Type</th>
+
                                     <th scope="col">Skills</th>
+                                    <th scope="col">Location</th>
+
                                     <th scope="col">Experience</th>
                                     <th scope="col">Deadline</th>
                                     <th scope="col">Actions</th>
@@ -52,20 +56,34 @@
                                     <tr>
                                         <th scope="row">{{ $index + 1 }}</th>
                                         <td>{{ $job->job_title }}</td>
-                                        <td>{{ $job->job_category ?? 'N/A'}}</td>
+                                        <td>{{ $job->category->name ?? 'N/A' }}</td>
                                         <td>{{ $job->job_type }}</td>
+                                        <td>{{ $job->salary_range }}</td>
                                         <td>{{ $job->work_setup }}</td>
+                                        <td>{{ $job->experience_level }}</td>
                                         <td>{{ $job->location ?? '—' }}</td>
-                                        <td>{{ $job->vacancies }}</td>
+
                                         <td>{{ $job->experience_level }}</td>
                                         <td>
                                             {{ $job->application_deadline ? \Carbon\Carbon::parse($job->application_deadline)->format('M d, Y') : '—' }}
                                         </td>
-                                        <td>
-                                            <a href="#" class="btn btn-sm btn-info">View</a>
-                                            <a href="#" class="btn btn-sm btn-warning">Edit</a>
+                                        <td class="d-flex gap-2">
 
+                                            <a href="{{route('jobedit', $job->id)}}"
+                                                class="btn btn-sm btn-warning d-flex align-items-center gap-1">
+                                                <i class="bi bi-pencil"></i> Edit
+                                            </a>
+                                            <form action="{{ route('jobs.destroy', $job->id) }}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-sm btn-danger d-flex align-items-center gap-1"
+                                                    onclick="return confirm('Delete this job?')">
+                                                    <i class="bi bi-trash"></i> Delete
+                                                </button>
+                                            </form>
                                         </td>
+
                                     </tr>
                                 @empty
                                     <tr>
@@ -116,7 +134,7 @@
 
                             <div class="col-md-6 mb-3">
 
-                                <select class="form-select" name="job_category" required>
+                                <select class="form-select" name="job_category_id" required>
                                     <option value="">-- Select Job Category --</option>
                                     @foreach ($job_categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
